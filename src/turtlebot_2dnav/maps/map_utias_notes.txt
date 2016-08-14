@@ -1,0 +1,10 @@
+resolution: 20 m / 126 pixels = 0.158730
+
+Occupied: v0 r0 g0 b0
+Unknown: v80 r205 g205 b205
+Clear: v100 r254 g254 b254
+
+origin at (0,0)
+Office 108: 29.48, 88.95, 0.00, 1.00
+Office 189: 120.75, 40.39, 0.00, 1.00
+Office 191: 128.35, 38.74, 0.00, 1.00

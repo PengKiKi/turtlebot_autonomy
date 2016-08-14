@@ -1,0 +1,17 @@
+<launch>
+
+  <!-- Sensor -->
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="false" />
+    <arg name="depth_registration" value="false" />
+    <arg name="depth_processing" value="false" />
+    <arg name="scan_topic" value="/scan" />
+  </include>
+
+  <!-- Run gmapping -->
+  <include file="$(find turtlebot_2dnav)/launch/includes/gmapping.launch.xml"/>
+
+  <!-- Odom and transform -->
+  <include file="$(find turtlebot_2dnav)/launch/includes/move_base.launch.xml"/>
+
+</launch>

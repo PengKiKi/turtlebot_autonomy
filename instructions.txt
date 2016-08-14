@@ -1,0 +1,45 @@
+This ROS workspace was built for a turtlebot to autonomously navigate through UTIAS.
+
+Steps:
+1. Network Configuration
+	a. Copy turtlebot_autonomy workspace into turtlebot home
+	b. turtlebot: cd turtlebot_autonomy && catkin_make
+	d. Connect workstation to Turtlebot wifi network
+	e. "ifconfig" to determine ip addresses
+	f. Add the following into turtlebot's .bashrc file
+		export ROS_MASTER_URI=http://10.42.0.1:11311
+		export ROS_HOSTNAME=10.42.0.1
+		source ~/turtlebot_autonomy/devel/setup.bash
+	g. Close turtlebot netbook
+	h. Add the following into the workstation's .bashrc file
+		export ROS_MASTER_URI=http://10.42.0.1:11311
+		export ROS_HOSTNAME=IP_OF_WORKSTATION
+	   (turtlebot_autonomy should already be sourced)
+	i. workstation (3 terminals): ssh turtlebot@10.42.0.1 --admin password for turtlebot is "turtlebot"
+
+2. Bringup
+	a. Press power button on kobuki base, ensure USB cables are connected properly to netbook
+ 	b. turtlebot: roslaunch turtlebot_bringup minimal.launch --turtlebot will chirp happily
+	   turtlebot check: rosnode list
+	   workstation check: rostopic list
+        c. turtlebot: roslaunch kobuki_auto_docking minimal.launch
+	d. workstation: rqt -s kobuki_dashboard --should be able to see battery status on message board with no warnings
+
+3. Teleop
+	a. workstation ready: roslaunch turtlebot_teleop keyboard_teleop.launch
+          or workstation: roslaunch turtlebot_teleop xbox360_teleop.launch
+	b. Use teleop when it is necessary to override commands from algorithms
+		i.e. running this command stops turtlebot if in autonomous routine
+
+6. Autonomous Navigation
+	a. Ensure that parameter and launchfile for amcl on turtlebot package is correct
+	a. turtlebot: roslaunch turtlebot_2dnav amcl.launch
+	c. workstation: roslaunch turtlebot_rviz_launchers view_navigation.launch
+	d. Use workstation rviz to set navigation goals to turtlebot
+	or workstation: rosrun simple_navigation_goals utias_navigation_goals.py
+
+Appendix A: Mapping
+1. Gmapping
+	a. turtlebot: roslaunch turtlebot_2dnav gmapping.launch
+	b. workstation: cd bagfiles && rosbag record -O BAGFILE /odom /scan /tf
+	c. turtlebot: cd turtlebot_autonomy/src/turtlebot_2dnav/maps && rosrun map_server map_saver -f MAP_NAME

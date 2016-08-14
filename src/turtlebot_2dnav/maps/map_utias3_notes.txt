@@ -1,0 +1,6 @@
+Occupied: v0 r0 g0 b0
+Unknown: v80 r205 g205 b205
+Clear: v100 r254 g254 b254
+
+Office 108: -49.16, 86.21, -0.4718
+Office 189: -0.34, 0.35, 0.0
